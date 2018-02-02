@@ -1,0 +1,93 @@
+/* general bootstrap overrides */
+
+body {
+    font-family: $primary-regular-font, $secondary-regular-font, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: $background;
+}
+
+a {
+    color: #6948a7;
+    text-decoration: none !important;
+    &:focus,
+    &:hover {
+        color: #7b52ca;
+    }
+}
+
+.main-font {
+    font-family: $primary-regular-font;
+}
+
+h1,
+.h1 {
+    font-size: 2rem;
+}
+
+h2,
+.h2 {
+    font-size: 1.75rem;
+}
+
+h3,
+.h3 {
+    font-size: 1.5rem;
+}
+
+.card-columns {
+    @media (min-width: $breakpoint-sm) {
+        column-count: 1;
+    }
+    @media (min-width: $breakpoint-md) {
+        column-count: 2;
+    }
+    @media (min-width: $breakpoint-xl) {
+        column-count: 3;
+    }
+    .card {
+        border-radius: 0;
+        margin-bottom: 0.75rem;
+    }
+}
+
+
+/* responsive images by default */
+
+article {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        padding-top: 0.4rem;
+        margin-bottom: 0.7rem;
+    }
+    p {
+        color: $article-paragraph-color;
+        line-height: 1.825;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    li {
+        margin-bottom: 5px;
+    }
+}
+
+footer {
+    font-size: 13px;
+    color: #757575;
+    .list-inline-item {
+        a {
+            color: #505050;
+        }
+        &:not(:last-child) {
+            margin-right: 0px;
+            &::after {
+                content: '\2022';
+                margin: 0 7px;
+            }
+        }
+    }
+}
