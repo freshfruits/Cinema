@@ -45,9 +45,7 @@ class MovieController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        /*
-
+    {   
         $request->validate([
             'title' => 'required|min:3',
             'summary' => 'required',
@@ -55,7 +53,7 @@ class MovieController extends Controller
             'logo' => 'nullable|url',
             'release' => 'required',
         ]);
-*/
+
         $movie = Movie::create(['title' => $request->title,'summary' => $request->summary,'language' => $request->language, 'logo' => $request->logo, 'release' => $request->release]);
         return redirect('/movies/'.$movie->id);
     }
