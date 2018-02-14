@@ -22,7 +22,7 @@ Done ready to go.
 
 ## to do
  - Validation i form
- - billet system
+ - billet system (basket e.t.c)
  - bruger profil
  - Admin page
- - Clean Code
+ - Cleaner Code
