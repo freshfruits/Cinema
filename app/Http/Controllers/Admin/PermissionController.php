@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
-class UserController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +21,13 @@ class UserController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $user = User::where('name','LIKE',"%$keyword%")->paginate($perPage);
+            $permission = Permission::where('name', 'LIKE', "%$keyword%")
+                ->paginate($perPage);
         } else {
-            $user = User::paginate($perPage);
+            $permission = Permission::paginate($perPage);
         }
 
-        return view('admin.user.index', compact('user'));
+        return view('admin.permission.index', compact('permission'));
     }
 
     /**
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        return view('admin.permission.create');
     }
 
     /**
@@ -49,15 +50,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         
-        $requestData = $request->except('roles');
-        $roles=$request->roles;
-        $user =  User::create($requestData);
+        $requestData = $request->all();
+        
+        Permission::create($requestData);
 
-        $user->assignRole($roles);
-
-
-
-        return redirect('admin/user')->with('flash_message', 'User added!');
+        return redirect('admin/permission')->with('flash_message', 'Permission added!');
     }
 
     /**
@@ -69,9 +66,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $permission = Permission::findOrFail($id);
 
-        return view('admin.user.show', compact('user'));
+        return view('admin.permission.show', compact('permission'));
     }
 
     /**
@@ -83,9 +80,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $permission = Permission::findOrFail($id);
 
-        return view('admin.user.edit', compact('user'));
+        return view('admin.permission.edit', compact('permission'));
     }
 
     /**
@@ -101,12 +98,10 @@ class UserController extends Controller
         
         $requestData = $request->all();
         
-        $user = User::findOrFail($id);
-        $user->update($requestData);
+        $permission = Permission::findOrFail($id);
+        $permission->update($requestData);
 
-        $user->syncRoles($request->roles);
-
-        return redirect('admin/user')->with('flash_message', 'User updated!');
+        return redirect('admin/permission')->with('flash_message', 'Permission updated!');
     }
 
     /**
@@ -118,8 +113,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        Permission::destroy($id);
 
-        return redirect('admin/user')->with('flash_message', 'User deleted!');
+        return redirect('admin/permission')->with('flash_message', 'Permission deleted!');
     }
 }

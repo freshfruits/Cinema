@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username',
     ];
 
     /**
@@ -35,4 +37,14 @@ class User extends Authenticatable
 	public function getRouteKeyName() {
 		return 'name';
     }
+
+
+    // Apperntly you can do ${{ $user->password }} to view nonhashed password.
+    public function setPasswordAttribute($value)
+    {
+        if($value){
+            $this->attributes['password']= app('hash')->needsRehash($value)?Hash::make($value):$value;
+        }
+    }
+
 }

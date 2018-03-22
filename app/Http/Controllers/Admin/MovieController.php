@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\User;
+use App\Movie;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +21,13 @@ class UserController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $user = User::where('name','LIKE',"%$keyword%")->paginate($perPage);
+            $movie = Movie::where('name', 'LIKE', "%$keyword%")
+                ->paginate($perPage);
         } else {
-            $user = User::paginate($perPage);
+            $movie = Movie::paginate($perPage);
         }
 
-        return view('admin.user.index', compact('user'));
+        return view('admin.movie.index', compact('movie'));
     }
 
     /**
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        return view('admin.movie.create');
     }
 
     /**
@@ -49,15 +50,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         
-        $requestData = $request->except('roles');
-        $roles=$request->roles;
-        $user =  User::create($requestData);
+        $requestData = $request->all();
+        
+        Movie::create($requestData);
 
-        $user->assignRole($roles);
-
-
-
-        return redirect('admin/user')->with('flash_message', 'User added!');
+        return redirect('admin/movie')->with('flash_message', 'Movie added!');
     }
 
     /**
@@ -69,9 +66,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $movie = Movie::findOrFail($id);
 
-        return view('admin.user.show', compact('user'));
+        return view('admin.movie.show', compact('movie'));
     }
 
     /**
@@ -83,9 +80,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $movie = Movie::findOrFail($id);
 
-        return view('admin.user.edit', compact('user'));
+        return view('admin.movie.edit', compact('movie'));
     }
 
     /**
@@ -101,12 +98,10 @@ class UserController extends Controller
         
         $requestData = $request->all();
         
-        $user = User::findOrFail($id);
-        $user->update($requestData);
+        $movie = Movie::findOrFail($id);
+        $movie->update($requestData);
 
-        $user->syncRoles($request->roles);
-
-        return redirect('admin/user')->with('flash_message', 'User updated!');
+        return redirect('admin/movie')->with('flash_message', 'Movie updated!');
     }
 
     /**
@@ -118,8 +113,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        Movie::destroy($id);
 
-        return redirect('admin/user')->with('flash_message', 'User deleted!');
+        return redirect('admin/movie')->with('flash_message', 'Movie deleted!');
     }
 }

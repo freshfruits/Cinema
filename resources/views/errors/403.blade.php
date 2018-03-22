@@ -4,7 +4,8 @@
 	<section class="error-container">
 		<div class="card">
 			<div class="card-body">
-				<h2>401 Error</h2>
+				<h2>403 Error</h2>
+                <p><b>Access denied. </b>If you believe this to be an error, contact your local admin.</p>
 			</div>
 		</div>
 	</section>

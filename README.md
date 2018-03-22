@@ -20,6 +20,10 @@ Update the database section
 
 Done ready to go. 
 
+## Packages
+https://github.com/spatie/laravel-permission#using-blade-directives <br>
+https://github.com/appzcoder/crud-generator
+
 ## to do
  - Validation i form
  - billet system (basket e.t.c)

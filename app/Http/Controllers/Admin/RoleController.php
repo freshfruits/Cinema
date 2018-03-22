@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-use App\Models\User;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +22,13 @@ class UserController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $user = User::where('name','LIKE',"%$keyword%")->paginate($perPage);
+            $role = Role::where('name', 'LIKE', "%$keyword%")
+                ->paginate($perPage);
         } else {
-            $user = User::paginate($perPage);
+            $role = Role::paginate($perPage);
         }
 
-        return view('admin.user.index', compact('user'));
+        return view('admin.role.index', compact('role'));
     }
 
     /**
@@ -36,7 +38,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $permissions=Permission::get()->pluck('name','name');
+        return view('admin.role.create',compact('permissions'));
     }
 
     /**
@@ -48,16 +51,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        $requestData = $request->except('permissions');
+        $permissions=$request->permissions;
         
-        $requestData = $request->except('roles');
-        $roles=$request->roles;
-        $user =  User::create($requestData);
+        $role=Role::create($requestData);
 
-        $user->assignRole($roles);
+        $role->givePermissionTo($permissions);
 
-
-
-        return redirect('admin/user')->with('flash_message', 'User added!');
+        return redirect('admin/role')->with('flash_message', 'Role added!');
     }
 
     /**
@@ -69,9 +71,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $role = Role::findOrFail($id);
 
-        return view('admin.user.show', compact('user'));
+        return view('admin.role.show', compact('role'));
     }
 
     /**
@@ -83,9 +85,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $role = Role::findOrFail($id);
+        $permissions=Permission::get()->pluck('name','name');
 
-        return view('admin.user.edit', compact('user'));
+
+        return view('admin.role.edit', compact('role','permissions'));
     }
 
     /**
@@ -99,14 +103,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         
-        $requestData = $request->all();
+       $requestData = $request->except('permissions');
+        $permissions=$request->permissions;
         
-        $user = User::findOrFail($id);
-        $user->update($requestData);
+        $role = Role::findOrFail($id);
+        $role->update($requestData);
 
-        $user->syncRoles($request->roles);
+        $role->syncPermissions($permissions);
 
-        return redirect('admin/user')->with('flash_message', 'User updated!');
+        return redirect('admin/role')->with('flash_message', 'Role updated!');
     }
 
     /**
@@ -118,8 +123,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        Role::destroy($id);
 
-        return redirect('admin/user')->with('flash_message', 'User deleted!');
+        return redirect('admin/role')->with('flash_message', 'Role deleted!');
     }
 }

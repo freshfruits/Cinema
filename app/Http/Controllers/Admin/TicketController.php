@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\User;
+use App\Ticket;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +21,13 @@ class UserController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $user = User::where('name','LIKE',"%$keyword%")->paginate($perPage);
+            $ticket = Ticket::where('name', 'LIKE', "%$keyword%")
+                ->paginate($perPage);
         } else {
-            $user = User::paginate($perPage);
+            $ticket = Ticket::paginate($perPage);
         }
 
-        return view('admin.user.index', compact('user'));
+        return view('admin.ticket.index', compact('ticket'));
     }
 
     /**
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        return view('admin.ticket.create');
     }
 
     /**
@@ -49,15 +50,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         
-        $requestData = $request->except('roles');
-        $roles=$request->roles;
-        $user =  User::create($requestData);
+        $requestData = $request->all();
+        
+        Ticket::create($requestData);
 
-        $user->assignRole($roles);
-
-
-
-        return redirect('admin/user')->with('flash_message', 'User added!');
+        return redirect('admin/ticket')->with('flash_message', 'Ticket added!');
     }
 
     /**
@@ -69,9 +66,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $ticket = Ticket::findOrFail($id);
 
-        return view('admin.user.show', compact('user'));
+        return view('admin.ticket.show', compact('ticket'));
     }
 
     /**
@@ -83,9 +80,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $ticket = Ticket::findOrFail($id);
 
-        return view('admin.user.edit', compact('user'));
+        return view('admin.ticket.edit', compact('ticket'));
     }
 
     /**
@@ -101,12 +98,10 @@ class UserController extends Controller
         
         $requestData = $request->all();
         
-        $user = User::findOrFail($id);
-        $user->update($requestData);
+        $ticket = Ticket::findOrFail($id);
+        $ticket->update($requestData);
 
-        $user->syncRoles($request->roles);
-
-        return redirect('admin/user')->with('flash_message', 'User updated!');
+        return redirect('admin/ticket')->with('flash_message', 'Ticket updated!');
     }
 
     /**
@@ -118,8 +113,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        Ticket::destroy($id);
 
-        return redirect('admin/user')->with('flash_message', 'User deleted!');
+        return redirect('admin/ticket')->with('flash_message', 'Ticket deleted!');
     }
 }

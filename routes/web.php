@@ -5,13 +5,35 @@
 | Welcome Page
 |--------------------------------------------------------------------------
 */
-
 Route::get('/', 'PagesController@index');
 
-Route::get('/u/{user}', 'UserController@profile')->name('profile');
-
-
 Route::resource('movies', 'MovieController');
+
+/*
+|--------------------------------------------------------------------------
+| Admin
+|--------------------------------------------------------------------------
+*/
+
+Route::group(['middleware'=>['role:admin','auth']],function(){
+
+        // views 
+        Route::view('/admin','admin.index');
+
+        // Resources 
+        Route::resource('admin/permission', 'Admin\\PermissionController');
+        Route::resource('admin/role', 'Admin\\RoleController');
+        Route::resource('admin/user', 'Admin\\UserController');
+        Route::resource('movies', 'MovieController');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| User Routes
+|--------------------------------------------------------------------------
+*/
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,23 +54,3 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Registrations
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
-
-/*
-|--------------------------------------------------------------------------
-| User Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
-    Route::get('dashboard', 'UserController@index');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Admin
-|--------------------------------------------------------------------------
-*/
-
-// Route::get('admin', ['middleware' => 'admin', function () {
-    
-// }]);
