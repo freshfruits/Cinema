@@ -7,7 +7,7 @@
     <body>
         @yield('top')
 
-        <div class="container">
+        <main class="py-4">
             <main>
                 @yield('content')
             </main>
