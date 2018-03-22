@@ -1,16 +1,10 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
-
 // Variables
 @import "variables";
-@import "var";
-
-/* Generic Pages */ 
-@import "user";
-@import "errors";
-@import "main";
-@import "globals";
-
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import '~bootstrap/scss/bootstrap';
+.navbar-laravel {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
