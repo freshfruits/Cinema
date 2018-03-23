@@ -18,7 +18,7 @@ Route::resource('movies', 'MovieController');
 Route::group(['middleware'=>['role:admin','auth']],function(){
 
         // views 
-        Route::view('/admin','admin.index');
+        Route::view('/admin','admin.index')->name('admin');
 
         // Resources 
         Route::resource('admin/permission', 'Admin\\PermissionController');
