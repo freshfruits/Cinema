@@ -1,4 +1,5 @@
 # Cinema
+> The idea by continuing working on this project, is to show future employers what I can with the framework.
 
 ## install
 
