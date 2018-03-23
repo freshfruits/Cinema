@@ -21,7 +21,7 @@ Update the database section
 Done ready to go. 
 
 ## Packages
-https://github.com/spatie/laravel-permission#using-blade-directives <br>
+https://github.com/spatie/laravel-permission <br>
 https://github.com/appzcoder/crud-generator
 
 ## to do
