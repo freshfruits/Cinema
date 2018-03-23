@@ -2,7 +2,7 @@
 
 ## install
 
-Kør kommando inde i mappen.
+Run command inside folder
 
 `composer install`
 
