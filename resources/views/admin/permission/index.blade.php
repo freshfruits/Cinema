@@ -5,18 +5,18 @@
         <div class="row">
 
             <div class="col-md-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Permission</div>
-                    <div class="panel-body">
-                        <a href="{{ url('/admin/permission/create') }}" class="btn btn-success btn-sm" title="Add New Permission">
+                <div class="card">
+                    <div class="card-header">permission</div>
+                    <div class="card-body">
+                        <a href="{{ url('/admin/permission/create') }}" class="btn btn-success btn-sm" title="Add New permission">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/permission', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+                        {!! Form::open(['method' => 'GET', 'url' => '/admin/permission', 'class' => 'form-inline my-2 my-lg-0 float-right', 'permission' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
+                            <span class="input-group-append">
+                                <button class="btn btn-secondary" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
@@ -38,8 +38,8 @@
                                         <td>{{ $loop->iteration or $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/permission/' . $item->id) }}" title="View Permission"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/admin/permission/' . $item->id . '/edit') }}" title="Edit Permission"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/admin/permission/' . $item->id) }}" title="View permission"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/admin/permission/' . $item->id . '/edit') }}" title="Edit permission"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => ['/admin/permission', $item->id],
@@ -47,8 +47,8 @@
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
                                                         'type' => 'submit',
-                                                        'class' => 'btn btn-danger btn-xs',
-                                                        'title' => 'Delete Permission',
+                                                        'class' => 'btn btn-danger btn-sm',
+                                                        'title' => 'Delete permission',
                                                         'onclick'=>'return confirm("Confirm delete?")'
                                                 )) !!}
                                             {!! Form::close() !!}
