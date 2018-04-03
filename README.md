@@ -26,8 +26,6 @@ https://github.com/spatie/laravel-permission <br>
 https://github.com/appzcoder/crud-generator
 
 ## to do
- - Login with username instead of email. (Currently in progress. Can't login with Username atm without fucking up permission.)
- - Admin panel
  - User profiles
  - Ticket system
  - Movie system
