@@ -17,14 +17,13 @@ Route::resource('movies', 'MovieController');
 
 Route::group(['middleware'=>['role:admin','auth']],function(){
 
-        // views 
-        Route::view('/admin','admin.index')->name('admin');
+    // views 
+    Route::view('/admin','admin.index')->name('admin');
 
-        // Resources 
-        Route::resource('admin/permission', 'Admin\\PermissionController');
-        Route::resource('admin/role', 'Admin\\RoleController');
-        Route::resource('admin/user', 'Admin\\UserController');
-        Route::resource('movies', 'MovieController');
+    // Resources 
+    Route::resource('admin/permission', 'Admin\\PermissionController');
+    Route::resource('admin/role', 'Admin\\RoleController');
+    Route::resource('admin/user', 'Admin\\UserController');
 
 });
 
@@ -34,6 +33,9 @@ Route::group(['middleware'=>['role:admin','auth']],function(){
 |--------------------------------------------------------------------------
 */
 
+Route::group(['middleware'=>['role:regular','auth']],function(){
+
+});
 
 /*
 |--------------------------------------------------------------------------
