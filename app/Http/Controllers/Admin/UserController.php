@@ -21,7 +21,7 @@ class UserController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $user = User::where('name','LIKE',"%$keyword%")->paginate($perPage);
+            $user = User::where('username','LIKE',"%$keyword%")->paginate($perPage);
         } else {
             $user = User::paginate($perPage);
         }

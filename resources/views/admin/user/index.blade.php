@@ -31,6 +31,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Username</th>
                                         <th>Email</th>
                                         <th>Actions</th>
                                     </tr>
@@ -40,6 +41,7 @@
                                     <tr>
                                     <td>{{ $loop->iteration or $item->id }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->username }}</td>
                                     <td>{{ $item->email }}</td>
                                         <td>
                                         <a href="{{ url('/admin/user/' . $item->id) }}" title="View user"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

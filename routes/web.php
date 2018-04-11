@@ -20,10 +20,14 @@ Route::group(['middleware'=>['role:admin','auth']],function(){
     // views 
     Route::view('/admin','admin.index')->name('admin');
 
-    // Resources 
+    // Admin User/Permission/Rules 
     Route::resource('admin/permission', 'Admin\\PermissionController');
     Route::resource('admin/role', 'Admin\\RoleController');
     Route::resource('admin/user', 'Admin\\UserController');
+
+    // Admin Movies
+    Route::resource('admin/movie', 'Admin\\MovieController');
+    
 
 });
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Movie;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -18,11 +18,10 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 10;
 
         if (!empty($keyword)) {
-            $movie = Movie::where('name', 'LIKE', "%$keyword%")
-                ->paginate($perPage);
+            $movie = Movie::where('title', 'LIKE', "%$keyword%")->paginate($perPage);
         } else {
             $movie = Movie::paginate($perPage);
         }

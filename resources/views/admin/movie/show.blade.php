@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends('templates.pages.generic')
 
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
             <div class="col-md-9">
                 <div class="card">
@@ -33,7 +32,11 @@
                                     <tr>
                                         <th>ID</th><td>{{ $movie->id }}</td>
                                     </tr>
-                                    <tr><th> Name </th><td> {{ $movie->name }} </td></tr>
+                                    <tr><th> Title </th><td> {{ $movie->title }} </td></tr>
+                                    <tr><th> Summary </th><td> {{ $movie->summary }} </td></tr>
+                                    <tr><th> Language </th>   <td><img src="{{ $movie->logo }}" width="auto" height="100" alt="{{$movie->title}}"></td></tr>
+                                    <tr><th> Release Year </th><td>{{ $movie->release }}</td></tr>
+                                    <tr><th> Created at </th><td>{{ $movie->created_at->toFormattedDateString() }}</td></tr>
                                 </tbody>
                             </table>
                         </div>

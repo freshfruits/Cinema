@@ -1,11 +1,10 @@
-@extends('layouts.app')
+@extends('templates.pages.generic')
 
 @section('content')
     <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Movie</div>
                     <div class="card-body">
@@ -30,14 +29,26 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Actions</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Movie Title</th>
+                                    <th scope="col">Movie Summary</th>
+                                    <th scope="col">Movie Language</th>
+                                    <th scope="col">Movie Logo</th>
+                                    <th scope="col">Movie Release Year</th>
+                                    <th scope="col">Created At</th>
+                                    <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($movie as $item)
                                     <tr>
                                         <td>{{ $loop->iteration or $item->id }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->title }}</td>
+                                        <td>{{ $item->summary }}</td>
+                                        <td>{{ $item->language }}</td>
+                                        <td><img src="{{ $item->logo }}" width="auto" height="100" alt="{{$item->title}}"></td>
+                                        <td>{{$item->release}}</td>
+                                        <td>{{$item->created_at->toFormattedDateString()}}</td>
                                         <td>
                                             <a href="{{ url('/admin/movie/' . $item->id) }}" title="View Movie"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/movie/' . $item->id . '/edit') }}" title="Edit Movie"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
